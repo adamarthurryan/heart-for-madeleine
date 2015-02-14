@@ -3,6 +3,7 @@
 function setup() {
   // put setup code here
   createCanvas(windowWidth,windowHeight);
+  background(255);
 }
 
 var mPressed, mReleased;
@@ -45,6 +46,27 @@ function draw() {
     textAlign(CENTER);
     text("A+M", width/2, height/2+(width/20));
   //}
+}
+
+var ctrl = false
+
+//save on CTRL+S
+function keyPressed() {
+  if (keyCode == CONTROL) {
+    ctrl = true;
+  }
+  if (key == 'S' && ctrl) {
+    save();
+    return false;
+  }
+
+}
+
+function keyReleased() {
+  if (keyCode == CONTROL) {
+    ctrl = false;
+    println('control');
+  }
 }
 
 function mousePressed() {
