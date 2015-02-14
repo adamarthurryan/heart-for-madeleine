@@ -14,11 +14,11 @@ function draw() {
   noStroke();
 
   var size = width/20 * (.5 + (millis()-mPressed)/800);
-  var strobe = ((millis()-mPressed)/6) % 100;
+  var strobe = millis()/6 % 100;
     
   // put drawing code here
   if (mouseIsPressed && !popping) {
-    fill(pink(0, strobe/100*10));
+    fill(pink(strobe/100*10));
     drawHeart(mouseX, mouseY, size);
   }
   if (popping) {
@@ -49,8 +49,8 @@ function mouseReleased() {
   popping = true;
 }
 
-function pink(strobe, alpha) {
-  return color(99, 90, 80, alpha);
+function pink(alpha) {
+  return color(94, 100, 100, alpha);
 }
 
 function rando(alpha) {
