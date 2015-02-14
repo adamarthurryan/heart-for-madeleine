@@ -10,6 +10,7 @@ var popping;
 
 function draw() {
   colorMode(HSB, 100);
+  angleMode(RADIANS);
 
   noStroke();
 
@@ -23,22 +24,27 @@ function draw() {
   }
   if (popping) {
     popping = false;
-    fill(rando(220));
-    ellipse(mouseX, mouseY,size*1.5, size*1.5);
+    var color = rando(220);
+    fill(color);
+    ellipse(mouseX, mouseY,size*1.4, size*1.4);
+    drawRandomDrops(mouseX, mouseY, size*1.4);
   }
 
 
   //fill(pink(10));
   //drawHeart(mouseX, mouseY);
 
-  //draw foreground text
-  fill (100, 0, 100, 8);
-  noStroke();
-  textFont("sans");
-  textStyle(BOLD);
-  textSize(width/5);
-  textAlign(CENTER);
-  text("A+M", width/2, height/2+(width/20));
+  //if (randomGaussian() > 1) {
+  //if (millis() % 2 == 0 ) {}
+    //draw foreground text
+    fill (100, 0, 100, 255);
+    noStroke();
+    textFont("sans");
+    textStyle(BOLD);
+    textSize(width/5);
+    textAlign(CENTER);
+    text("A+M", width/2, height/2+(width/20));
+  //}
 }
 
 function mousePressed() {
@@ -47,6 +53,23 @@ function mousePressed() {
 function mouseReleased() {
   mReleased = millis();
   popping = true;
+}
+
+function drawRandomDrops(x, y, size) {
+  var count = randomGaussian(5, 2);
+  for (var i=0;i<5;i++) {
+    //center of drop in polar coordinates
+    var dist = floor(randomGaussian(size/1.4, size/2));
+    var angle = random(0,2*PI);
+
+    //convert to cartesian
+    var dx = dist * cos(angle);
+    var dy = dist * sin(angle);
+
+    var dsize = randomGaussian(size/5, size/10);
+
+    ellipse(dx+x, dy+y, dsize, dsize); 
+  }
 }
 
 function pink(alpha) {
